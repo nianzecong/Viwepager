@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body style="background: #ddd;">
+		<div id="circle" style="width: 300px;height: 300px;"></div>
+<!--		<svg width="500px" height="500px">
+		   <path d="M 120 10
+		  			A 110 110, 0, 1, 0, 120.1 10
+		  			L 120.1 50
+		  			A 70 70, 0, 1, 1, 120 50
+		           Z" fill="green"/>
+		  <path d="M 120 20
+		  			A 100 100, 0, 1, 0, 120.1 20
+		  			L 120.1 40
+		  			A 80 80, 0, 1, 1, 120 40
+		           Z" fill="#000"/>
+		</svg>-->
+	</body>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+	
+		function draw(persent, settings){
+			var a = Math.PI * 2 * persent / 100;
+			var _settings = {
+				domId : "circle",
+				trackWidth : 10,
+				trackColor : "#ace",
+				barWidth :　20,
+				barColor : '#1483d6',
+			}
+			var $dom = $("#" +　_settings.domId);
+			var _rTrack = parseInt($dom.width())/2;
+			var _rBar = _rTrack + (_settings.barWidth - _settings.trackWidth)/2;
+			var _rTrack_inner = _rTrack - _settings.trackWidth;
+			var _rBar_inner = _rBar - _settings.barWidth;
+			var svgStr = "<svg width=\"500px\" height=\"500px\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">";
+			
+			var mTrackx = parseInt($dom.width()) / 2;
+			var mTracky = (_settings.barWidth - _settings.trackWidth)/2;
+			var d1 = "M " + mTrackx + " " + mTracky +
+		  			"A " + _rTrack + " " + _rTrack + ", 0, 1, 0, " + (mTrackx + 0.1) + " " + mTracky + 
+		  			"L " + (mTrackx + 0.1) + " " + (mTracky + _settings.trackWidth) + " " +
+		  			"A " + _rTrack_inner + " " + _rTrack_inner + ", 0, 1, 1, " + mTrackx + " " + (mTracky + _settings.trackWidth) + " " +
+		           	"Z";
+			svgStr += "<path d=\"" + d1 + "\" fill=\"" + _settings.trackColor + "\"/>";
+			
+			var mBarx = mTrackx + 0.1;
+			var mBary = 0;
+			// 扇形外弧起点
+//			var outx1 = mBarx;
+//			var outy1 = mTracky;
+			// 扇形外弧终点
+			var outx2 = mBarx + _rBar * Math.sin(a);
+			var outy2 = mBary + _rBar - _rBar * Math.cos(a); 
+			// 扇形内弧起点
+			var innerx1 = mBarx + _rBar_inner * Math.sin(a);
+			var innery1 = mBary + _settings.barWidth + _rBar_inner - _rBar_inner * Math.cos(a);
+			// 扇形外弧终点
+			var innerx2 = mBarx;
+			var innery2 = mBary + _settings.barWidth;
+			var bigCircle = persent > 50 ? 1 : 0;
+			var d2 = "M " + mBarx + " " + mBary + " "+
+		  			"A " + _rBar + " " + _rBar + ", 0, " + bigCircle + ", 1, " + outx2 + " "+ outy2 + " " + 
+		  			"L " + innerx1 + " " + innery1 + " " +
+		  			"A " + _rBar_inner + " " + _rBar_inner + ", 0, " + bigCircle + ", 0, " + innerx2 + " " + innery2 + " " +
+		           	"Z";
+			svgStr += "<path d=\"" + d2 + "\" fill=\"" + _settings.barColor + "\"/>";
+			
+			svgStr += "</svg>";
+			$dom.html(svgStr);
+		}
+		
+		$().ready(function(){
+			draw(90);
+		});
+	</script>
+</html>
