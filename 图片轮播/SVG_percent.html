@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<title></title>
 	</head>
-	<body style="background: #ddd;">
+	<body style="background: #fff;">
 		<div id="circle" style="width: 300px;height: 300px;"></div>
 <!--		<svg width="500px" height="500px">
 		   <path d="M 120 10
@@ -29,9 +29,7 @@
 				trackWidth : 10,
 				trackColor : "#ace",
 				barWidth :　20,
-				barColor : '#1483d6',
-				width : 500,
-				height : 500,
+				barColor : '#1483d6'
 			}
 			var $dom = $("#" +　_settings.domId);
 			var $svg = $dom.find("svg");
@@ -44,7 +42,7 @@
 			var mTracky = (_settings.barWidth - _settings.trackWidth)/2;
 			var mTrackx = domwidth / 2 + mTracky;
 			if($svg.length < 1){
-				var svgStr = "<svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\"></svg>";
+				var svgStr = "<svg style=\"width:100%;height:100%;\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\"></svg>";
 				$dom.append(svgStr);
 				$svg = $dom.find("svg");
 				var d1 = "M " + mTrackx + " " + mTracky +
